@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from "react";
+import Header from "./Header";
 
 const initialState = {
   questions: [],
@@ -44,7 +45,8 @@ function App() {
 
   return (
     <div>
-      Quiz:
+      <Header />
+      Quiz: {status}
       {questions?.map((q, i) => <div key={q.question}>{i}. {q.question}</div>)}
     </div>
   );
