@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function Options({ question, dispatch, usersAnswer }) {
-	const isQuestionAnswered = usersAnswer !== null
+export default function Options({ question, dispatch, userAnswer }) {
+	const isQuestionAnswered = userAnswer !== null
 
 
 	return (
@@ -10,7 +10,7 @@ export default function Options({ question, dispatch, usersAnswer }) {
 				<button
 					//FIXME: create separate function to manage classes
 					className={`btn btn-option
-						${idx === usersAnswer ? "answer" : ""}
+						${idx === userAnswer ? "answer" : ""}
 						${isQuestionAnswered
 							? idx === question.correctOption ? "correct" : "wrong"
 							: ""

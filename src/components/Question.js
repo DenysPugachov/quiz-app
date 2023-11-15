@@ -1,13 +1,13 @@
 import React from 'react'
 import Options from './Options'
 
-export default function Question({ question, dispatch, usersAnswer }) {
+export default function Question({ question, dispatch, userAnswer }) {
 	return (
 		<div>
 			<h3>{question.question}</h3>
 			<Options question={question}
 				dispatch={dispatch}
-				usersAnswer={usersAnswer} />
+				userAnswer={userAnswer} />
 		</div>
 	)
 }
