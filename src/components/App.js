@@ -10,6 +10,7 @@ const initialState = {
   questions: [],
   status: "loading", // loading, error, ready, finished
   currQuestionIndex: 0,
+  usersAnswer: null,
 }
 
 function reducer(state, action) {
@@ -27,13 +28,17 @@ function reducer(state, action) {
       }
     case "start":
       return { ...state, status: "active" }
+    case "getUserAnswer":
+      return {
+        ...state, usersAnswer: action.payload
+      }
     default:
       throw new Error("Unknown action. ")
   }
 }
 
 function App() {
-  const [{ questions, status, currQuestionIndex }, dispatch] = useReducer(reducer, initialState)
+  const [{ questions, status, currQuestionIndex, usersAnswer }, dispatch] = useReducer(reducer, initialState)
 
   const numOfQuiestions = questions.length
 
@@ -63,7 +68,10 @@ function App() {
               numOfQuiestions={numOfQuiestions}
               dispatch={dispatch}
             />}
-        {status === "active" && <Question question={questions[currQuestionIndex]} />}
+        {status === "active" &&
+          <Question question={questions[currQuestionIndex]}
+            dispatch={dispatch}
+            usersAnswer={usersAnswer} />}
       </Main>
     </div>
   );
