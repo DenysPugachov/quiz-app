@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import { useState } from "react";
 
 function App() {
+  const [quizData, setQuizData] = useState()
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await fetch("./data/questions.json") // path from index.html
+        if (!data.ok) throw new Error("Response is not ok!")
+        const res = await data.json()
+        setQuizData(res)
+      } catch (err) {
+        console.log('err', err)
+      }
+    }
+    fetchData()
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      Quiz:
+      {quizData?.questions.map((q, i) => <div key={q.question}>{i}. {q.question}</div>)}
     </div>
   );
 }
