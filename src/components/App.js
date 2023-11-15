@@ -9,6 +9,7 @@ import Question from "./Question";
 const initialState = {
   questions: [],
   status: "loading", // loading, error, ready, finished
+  currQuestionIndex: 0,
 }
 
 function reducer(state, action) {
@@ -32,7 +33,7 @@ function reducer(state, action) {
 }
 
 function App() {
-  const [{ questions, status }, dispatch] = useReducer(reducer, initialState)
+  const [{ questions, status, currQuestionIndex }, dispatch] = useReducer(reducer, initialState)
 
   const numOfQuiestions = questions.length
 
@@ -55,7 +56,6 @@ function App() {
     <div className="app">
       <Header />
       <Main>
-        <h4>
           {status === "loading" && <Loader />}
           {status === "error" && <Error />}
           {status === "ready" &&
@@ -63,10 +63,7 @@ function App() {
               numOfQuiestions={numOfQuiestions}
               dispatch={dispatch}
             />}
-          {status === "active" && <Question />}
-
-        </h4>
-        {/* {questions?.map((q, i) => <div key={q.question}>{i}. {q.question}</div>)} */}
+        {status === "active" && <Question question={questions[currQuestionIndex]} />}
       </Main>
     </div>
   );
